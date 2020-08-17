@@ -29,4 +29,8 @@ export class UserService {
   async update(id: string, user: UserInteface): Promise<User> {
     return await this.UserModel.findByIdAndUpdate(id, user, { new: true });
   }
+
+  async findByUserName(username: string): Promise<User> {
+    return await this.UserModel.findOne({ username });
+  }
 }
