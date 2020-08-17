@@ -9,34 +9,62 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDTO } from './dto/user.dto';
-import { User } from './user.schema';
+import { HttpResponse } from '../common/interfaces/http';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  findAll(): Promise<User[]> {
-    return this.userService.findAll();
+  async findAll(): Promise<HttpResponse> {
+    const users = await this.userService.findAll();
+
+    return {
+      message: 'OK',
+      data: users,
+    };
   }
 
   @Get(':id')
-  find(@Param('id') id: string): Promise<User> {
-    return this.userService.find(id);
+  async find(@Param('id') id: string): Promise<HttpResponse> {
+    const user = await this.userService.find(id);
+
+    return {
+      message: 'OK',
+      data: user,
+    };
   }
 
   @Post()
-  create(@Body() userData: UserDTO): Promise<User> {
-    return this.userService.create(userData);
+  async create(@Body() userData: UserDTO): Promise<HttpResponse> {
+    const user = await this.userService.create(userData);
+
+    return {
+      message: 'OK',
+      data: user,
+    };
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): Promise<User> {
-    return this.userService.delete(id);
+  async delete(@Param('id') id: string): Promise<HttpResponse> {
+    const user = await this.userService.delete(id);
+
+    return {
+      message: 'OK',
+      data: user,
+    };
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() userData: UserDTO): Promise<User> {
-    return this.userService.update(id, userData);
+  async update(
+    @Param('id') id: string,
+    @Body() userData: UserDTO,
+  ): Promise<HttpResponse> {
+    const user = await this.userService.update(id, userData);
+
+    return {
+      message: 'OK',
+      data: user,
+    };
   }
 }
