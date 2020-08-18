@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 /** Modules */
@@ -9,6 +8,6 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [MongooseModule.forRoot(process.env.MONGO_URI), UserModule, AuthModule],
   controllers: [],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
