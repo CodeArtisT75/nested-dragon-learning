@@ -1,4 +1,4 @@
-const path = require('path');
+import * as path from 'path';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../', '.env') });
 
@@ -11,7 +11,6 @@ import { MongoClient } from 'mongodb';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let connection;
-  let db;
 
   beforeEach(async () => {
     connection = await MongoClient.connect(process.env.MONGO_URI, {
@@ -36,7 +35,7 @@ describe('AppController (e2e)', () => {
       .get('/')
       .expect(200)
       .expect({
-        message: 'hello guess'
+        message: 'hello guess',
       });
   });
 });
