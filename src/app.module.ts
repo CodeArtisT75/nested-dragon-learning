@@ -8,9 +8,11 @@ import { RoleModule } from './role/role.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './common/guards/roles.guard';
 
+import { AppController } from './app.controller';
+
 @Module({
   imports: [MongooseModule.forRoot(process.env.MONGO_URI), UserModule, AuthModule, RoleModule],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,

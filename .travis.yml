@@ -1,0 +1,22 @@
+sudo: false
+
+language: node_js
+node_js:
+  - 12
+
+env:
+  - MONGO_URI="mongodb://localhost:27017/test" JWT_KEY="testjwtkey"
+
+services:
+  - mongodb
+
+before_script:
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - npm install
+
+script:
+  - npm run lint
+  - npm run test:e2e
+
+notifications:
+  email: false
