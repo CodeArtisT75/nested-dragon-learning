@@ -5,9 +5,7 @@ node_js:
   - 12
 
 env:
-  jobs:
-    - MONGO_URI="mongodb://localhost:27017/test"
-    - JWT_KEY="testjwtkey"
+  - MONGO_URI="mongodb://localhost:27017/test" JWT_KEY="testjwtkey"
 
 services:
   - mongodb
