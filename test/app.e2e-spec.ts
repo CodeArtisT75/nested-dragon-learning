@@ -2,6 +2,8 @@ import * as path from 'path';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../', '.env') });
 
+console.log(process.env.MONGO_URI);
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
@@ -13,7 +15,7 @@ describe('AppController (e2e)', () => {
   let connection;
 
   beforeEach(async () => {
-    connection = await MongoClient.connect(process.env.MONGO_URI, {
+    connection = await MongoClient.connect('mongodb://travis:test@localhost:27017/nestdragon', {
       useNewUrlParser: true,
     });
 
