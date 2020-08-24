@@ -1,12 +1,23 @@
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, '../', '.env') });
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { MongoClient } from 'mongodb';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let connection;
+  let db;
 
   beforeEach(async () => {
+    connection = await MongoClient.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+    });
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -15,10 +26,17 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
+  afterAll(async () => {
+    await connection.close();
+    await app.close();
+  });
+
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect({
+        message: 'hello guess'
+      });
   });
 });
