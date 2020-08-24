@@ -6,13 +6,13 @@ node_js:
 
 env:
   jobs:
-    - MONGO_URI="mongodb://travis:test@localhost:27017/nestdragon"
+    - MONGO_URI="mongodb://localhost:27017/nestdragon"
 
 services:
   - mongodb
 
 before_script:
-  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["userAdminAnyDatabase","dbAdminAnyDatabase","readWriteAnyDatabase"]});'
   - npm install
 
 script:
